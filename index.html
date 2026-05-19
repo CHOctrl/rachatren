@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ชาวเรื้อย — ด้อมราชาเทรนโบโรน</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Sarabun:wght@300;400;700;800&family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hot: #ff1a55;
+    --hot-dark: #cc0038;
+    --hot-glow: #ff1a5544;
+    --hot-light: #ff6b8a;
+    --bg: #0a0007;
+    --bg2: #100010;
+    --bg3: #1a001a;
+    --panel: #140014;
+    --border: #ff1a5540;
+    --border2: #ff1a5580;
+    --text: #ffe0e8;
+    --muted: #cc88aa;
+    --gold: #ffd700;
+    --silver: #c0c0c0;
+    --bronze: #cd7f32;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sarabun', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='4' fill='%23ff1a55'/%3E%3C/svg%3E") 10 10, auto;
+  }
+
+  /* ======= SCANLINES OVERLAY ======= */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* ======= STARS BG ======= */
+  .stars {
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, #fff8 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 50%, #fff6 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 10%, #fff8 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 70%, #fff6 0%, transparent 100%),
+      radial-gradient(1px 1px at 45% 85%, #fff8 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 30%, #fff6 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 60%, #fff8 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 40%, #fff4 0%, transparent 100%),
+      radial-gradient(2px 2px at 25% 75%, #ff1a5544 0%, transparent 100%),
+      radial-gradient(2px 2px at 85% 15%, #ff1a5533 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ======= HEADER ======= */
+  header {
+    position: relative;
+    z-index: 10;
+    border-bottom: 2px solid var(--hot);
+    background: linear-gradient(180deg, #200020 0%, #0a0007 100%);
+    padding: 0 0 0;
+    overflow: hidden;
+  }
+
+  .header-top {
+    background: var(--hot);
+    padding: 6px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+
+  .ticker-wrap {
+    overflow: hidden;
+    flex: 1;
+    margin: 0 20px;
+  }
+
+  .ticker {
+    display: inline-block;
+    white-space: nowrap;
+    animation: ticker 20s linear infinite;
+    color: #ffeeee;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .logo-area {
+    padding: 24px 20px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+  }
+
+  .logo-icon {
+    width: 80px;
+    height: 80px;
+    border: 3px solid var(--hot);
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    image-rendering: pixelated;
+    box-shadow: 0 0 20px var(--hot-glow), inset 0 0 10px rgba(255,26,85,0.1);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    animation: borderGlow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes borderGlow {
+    from { box-shadow: 0 0 10px var(--hot-glow), inset 0 0 5px rgba(255,26,85,0.1); border-color: var(--hot); }
+    to { box-shadow: 0 0 30px #ff1a5566, inset 0 0 15px rgba(255,26,85,0.2); border-color: var(--hot-light); }
+  }
+
+  .logo-text-wrap {}
+
+  .logo-site-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(10px, 2.5vw, 18px);
+    color: var(--hot);
+    text-shadow: 0 0 10px var(--hot), 2px 2px 0 #660022;
+    line-height: 1.6;
+    letter-spacing: 2px;
+    animation: flicker 4s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 95%, 100% { opacity: 1; }
+    96% { opacity: 0.7; }
+    97% { opacity: 1; }
+    98% { opacity: 0.5; }
+    99% { opacity: 1; }
+  }
+
+  .logo-sub {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .logo-badge {
+    display: inline-block;
+    background: var(--hot);
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    padding: 4px 8px;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* PIXEL ART DECORATION */
+  .pixel-deco {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.15;
+    font-size: 80px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50% { transform: translateY(-55%) translateX(4px); }
+  }
+
+  /* ======= NAV ======= */
+  nav {
+    position: relative;
+    z-index: 10;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border2);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  nav a {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 12px 16px;
+    border-right: 1px solid var(--border);
+    transition: all 0.1s;
+    letter-spacing: 1px;
+    position: relative;
+    display: block;
+  }
+
+  nav a:hover, nav a.active {
+    background: var(--hot);
+    color: white;
+    text-shadow: none;
+  }
+
+  nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #fff;
+  }
+
+  /* ======= MAIN LAYOUT ======= */
+  .main-wrap {
+    position: relative;
+    z-index: 5;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 16px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .main-wrap { grid-template-columns: 1fr; }
+    .pixel-deco { display: none; }
+  }
+
+  /* ======= PANEL / BOX ======= */
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border2);
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--hot), transparent);
+  }
+
+  .panel-header {
+    background: linear-gradient(90deg, var(--hot) 0%, #880030 100%);
+    padding: 8px 14px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: white;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-header .dot {
+    width: 6px; height: 6px;
+    background: #fff;
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .panel-body {
+    padding: 16px;
+  }
+
+  /* ======= ANNOUNCE BANNER ======= */
+  .announce {
+    background: linear-gradient(135deg, #200020, #0f000f);
+    border: 2px solid var(--hot);
+    padding: 16px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .announce::after {
+    content: 'NEW';
+    position: absolute;
+    top: 8px; right: -22px;
+    background: var(--hot);
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    padding: 4px 30px;
+    transform: rotate(45deg);
+    letter-spacing: 1px;
+  }
+
+  .announce-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    color: var(--hot);
+    margin-bottom: 10px;
+    text-shadow: 0 0 8px var(--hot);
+  }
+
+  .announce-text {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  /* ======= NEWS LIST ======= */
+  .news-item {
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .news-item:last-child { border-bottom: none; }
+
+  .news-date {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 6px;
+    color: var(--hot);
+    white-space: nowrap;
+    padding-top: 4px;
+    min-width: 70px;
+  }
+
+  .news-tag {
+    display: inline-block;
+    background: var(--hot);
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 5px;
+    padding: 3px 5px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .news-tag.blue { background: #1a55ff; }
+  .news-tag.gold { background: #cc9900; }
+
+  .news-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ======= DONATE SECTION ======= */
+  .donate-section {
+    background: linear-gradient(135deg, #1a0010, #200020);
+    border: 2px solid var(--hot);
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .donate-section::before {
+    content: '★ SUPPORT ★';
+    position: absolute;
+    top: -1px; left: 50%; transform: translateX(-50%);
+    background: var(--hot);
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    padding: 4px 12px;
+    letter-spacing: 1px;
+  }
+
+  .donate-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    text-align: center;
+    margin: 10px 0 16px;
+    text-shadow: 0 0 8px var(--gold);
+  }
+
+  .donate-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .donate-input-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .donate-field {
+    flex: 1;
+    min-width: 130px;
+  }
+
+  .donate-label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 6px;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+  }
+
+  .donate-input {
+    width: 100%;
+    background: #0a0007;
+    border: 1px solid var(--border2);
+    color: var(--text);
+    padding: 8px 10px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .donate-input:focus {
+    border-color: var(--hot);
+    box-shadow: 0 0 8px var(--hot-glow);
+  }
+
+  .donate-input::placeholder { color: #664455; }
+
+  .amount-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+
+  .pill {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--hot-light);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: all 0.1s;
+  }
+
+  .pill:hover, .pill.active {
+    background: var(--hot);
+    color: white;
+    border-color: var(--hot);
+  }
+
+  .donate-btn {
+    background: var(--hot);
+    color: white;
+    border: none;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    width: 100%;
+    transition: all 0.1s;
+    position: relative;
+    overflow: hidden;
+    text-shadow: 1px 1px 0 #660022;
+    box-shadow: 0 4px 0 #880030, 0 0 15px var(--hot-glow);
+  }
+
+  .donate-btn:hover {
+    background: var(--hot-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #880030, 0 0 25px var(--hot-glow);
+  }
+
+  .donate-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #880030;
+  }
+
+  /* ======= LEADERBOARD ======= */
+  .lb-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .lb-row:last-child { border-bottom: none; }
+
+  .lb-rank {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .lb-rank.gold { color: var(--gold); text-shadow: 0 0 6px var(--gold); }
+  .lb-rank.silver { color: var(--silver); }
+  .lb-rank.bronze { color: var(--bronze); }
+  .lb-rank.other { color: var(--muted); }
+
+  .lb-avatar {
+    width: 32px; height: 32px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    image-rendering: pixelated;
+  }
+
+  .lb-name {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text);
+    font-family: 'Chakra Petch', sans-serif;
+  }
+
+  .lb-amount {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: var(--hot);
+  }
+
+  /* ======= SIDEBAR SECTIONS ======= */
+  .member-count {
+    text-align: center;
+    padding: 16px 0;
+  }
+
+  .member-count .number {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 22px;
+    color: var(--hot);
+    text-shadow: 0 0 12px var(--hot);
+    display: block;
+    line-height: 1.4;
+  }
+
+  .member-count .label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .stat-row:last-child { border-bottom: none; }
+
+  .stat-key {
+    color: var(--muted);
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 12px;
+  }
+
+  .stat-val {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: var(--text);
+  }
+
+  /* ======= LINKS ======= */
+  .link-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13px;
+    font-family: 'Chakra Petch', sans-serif;
+    margin-bottom: 6px;
+    transition: all 0.1s;
+  }
+
+  .link-btn:hover {
+    background: var(--hot);
+    color: white;
+    border-color: var(--hot);
+  }
+
+  .link-btn .icon { font-size: 18px; }
+
+  /* ======= FOOTER ======= */
+  footer {
+    position: relative;
+    z-index: 10;
+    border-top: 2px solid var(--hot);
+    background: var(--panel);
+    padding: 16px 20px;
+    text-align: center;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 6px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    line-height: 2.5;
+  }
+
+  footer span { color: var(--hot); }
+
+  /* ======= SCROLLBAR ======= */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--hot); }
+
+  /* ======= PIXEL HEART ANIMATION ======= */
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  .heart { animation: heartbeat 1s ease-in-out infinite; display: inline-block; }
+
+  /* ======= TOAST ======= */
+  #toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--hot);
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    padding: 12px 24px;
+    letter-spacing: 1px;
+    z-index: 9999;
+    transition: transform 0.3s;
+    pointer-events: none;
+    box-shadow: 0 0 20px var(--hot);
+  }
+
+  #toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ======= MARQUEE ======= */
+  .retro-marquee {
+    background: var(--bg3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 6px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: var(--hot-light);
+    letter-spacing: 2px;
+  }
+
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee 25s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .online-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: #00ff88;
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,136,0.4); }
+    50% { box-shadow: 0 0 0 6px transparent; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+<div id="toast">✓ ขอบคุณ!</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <span>★ OFFICIAL FAN SITE ★</span>
+    <div class="ticker-wrap">
+      <span class="ticker">⚔ ชาวเรื้อยรวมใจ ⚔ ยินดีต้อนรับสู่ด้อมราชาเทรนโบโรน ⚔ ติดตามช่องราชาเทรนโบโรนได้เลย! ⚔ ด้อมชาวเรื้อยรวมพลัง ⚔</span>
+    </div>
+    <span id="clock">00:00:00</span>
+  </div>
+
+  <div class="logo-area">
+    <div class="logo-icon">👑</div>
+    <div class="logo-text-wrap">
+      <div class="logo-site-name">ราชาเทรนโบโรน</div>
+      <div class="logo-sub">Official Fan Community</div>
+      <div class="logo-badge">★ ด้อมชาวเรื้อย ★</div>
+    </div>
+    <div class="pixel-deco">⚔</div>
+  </div>
+
+  <div class="retro-marquee">
+    <span class="marquee-inner">
+      &nbsp;&nbsp;&nbsp;♥ ยินดีต้อนรับชาวเรื้อยทุกคน ♥ &nbsp;&nbsp; ★ ราชาเทรนโบโรน ★ &nbsp;&nbsp; ♦ ด้อมชาวเรื้อยแข็งแกร่งที่สุด ♦ &nbsp;&nbsp; ♣ Subscribe กันไว้นะ! ♣ &nbsp;&nbsp; ♥ ยินดีต้อนรับชาวเรื้อยทุกคน ♥ &nbsp;&nbsp; ★ ราชาเทรนโบโรน ★ &nbsp;&nbsp; ♦ ด้อมชาวเรื้อยแข็งแกร่งที่สุด ♦ &nbsp;&nbsp; ♣ Subscribe กันไว้นะ! ♣ &nbsp;&nbsp;
+    </span>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="active">🏠 หน้าแรก</a>
+    <a href="#">📰 ข่าวสาร</a>
+    <a href="#">🎮 คลิปเด็ด</a>
+    <a href="#">💬 พูดคุย</a>
+    <a href="#">💝 สนับสนุน</a>
+    <a href="#">🏆 อันดับ</a>
+    <a href="#">ℹ️ เกี่ยวกับ</a>
+  </nav>
+</header>
+
+<!-- MAIN -->
+<div class="main-wrap">
+
+  <!-- LEFT / CONTENT -->
+  <div class="left-col">
+
+    <!-- ANNOUNCE -->
+    <div class="announce">
+      <div class="announce-title">★ ประกาศจากด้อม ★</div>
+      <div class="announce-text">
+        ยินดีต้อนรับเว็บไซต์อย่างเป็นทางการของ <strong style="color:var(--hot)">ด้อมชาวเรื้อย</strong> ติดตามข่าวสาร คลิปใหม่ และกิจกรรมสนุกๆ จากช่อง <strong style="color:var(--gold)">ราชาเทรนโบโรน</strong> ได้ที่นี่ เป็นที่แรก!
+      </div>
+    </div>
+
+    <!-- NEWS -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="dot"></span>
+        📰 ข่าวสารล่าสุด
+      </div>
+      <div class="panel-body">
+        <div class="news-item">
+          <div class="news-date">19/05/26</div>
+          <div class="news-text">
+            <span class="news-tag">ใหม่</span>
+            เปิดตัวเว็บไซต์ด้อมชาวเรื้อยอย่างเป็นทางการแล้ว! ร่วมกันสนับสนุนพี่ราชาต่อไปนะ ❤️
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-date">18/05/26</div>
+          <div class="news-text">
+            <span class="news-tag blue">ไลฟ์</span>
+            ราชาเทรนโบโรนจะไลฟ์พิเศษเร็วๆ นี้ เตรียมตัวให้พร้อม!
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-date">15/05/26</div>
+          <div class="news-text">
+            <span class="news-tag gold">เหรียญทอง</span>
+            ขอบคุณสมาชิกทุกคนที่ร่วมสนับสนุนจนครบ 1 ปี ด้อมชาวเรื้อยสุดแกร่ง!
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-date">10/05/26</div>
+          <div class="news-text">
+            <span class="news-tag">กิจกรรม</span>
+            ประกาศผลการโหวตอวตารสมาชิกใหม่ — ผลปรากฏว่า... ⚔
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-date">05/05/26</div>
+          <div class="news-text">
+            <span class="news-tag blue">คลิปใหม่</span>
+            ราชาเทรนโบโรนออกคลิปตอนใหม่แล้ว! เข้าไปดูและกด Like กัน
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DONATE -->
+    <div class="donate-section">
+      <div class="donate-title">💝 สนับสนุนราชา 💝</div>
+
+      <div class="donate-form">
+        <div class="donate-input-row">
+          <div class="donate-field">
+            <label class="donate-label">ชื่อผู้สนับสนุน</label>
+            <input type="text" class="donate-input" id="donateName" placeholder="ชื่อของคุณ..." maxlength="30">
+          </div>
+          <div class="donate-field">
+            <label class="donate-label">อีเมล (ไม่บังคับ)</label>
+            <input type="email" class="donate-input" placeholder="your@email.com">
+          </div>
+        </div>
+
+        <div>
+          <label class="donate-label">เลือกจำนวน (บาท)</label>
+          <div class="amount-pills">
+            <button class="pill" onclick="selectAmount(this, 20)">฿20</button>
+            <button class="pill" onclick="selectAmount(this, 50)">฿50</button>
+            <button class="pill active" onclick="selectAmount(this, 100)">฿100</button>
+            <button class="pill" onclick="selectAmount(this, 200)">฿200</button>
+            <button class="pill" onclick="selectAmount(this, 500)">฿500</button>
+            <button class="pill" onclick="selectAmount(this, 1000)">฿1000</button>
+          </div>
+          <input type="number" class="donate-input" id="donateAmount" placeholder="หรือกรอกจำนวนเอง..." value="100" style="margin-top:6px;">
+        </div>
+
+        <div>
+          <label class="donate-label">ข้อความถึงราชา</label>
+          <input type="text" class="donate-input" id="donateMsg" placeholder="เขียนข้อความสั้นๆ..." maxlength="60">
+        </div>
+
+        <button class="donate-btn" onclick="submitDonate()">⚔ สนับสนุนตอนนี้เลย! ⚔</button>
+      </div>
+    </div>
+
+    <!-- TOP DONATORS -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="dot"></span>
+        🏆 อันดับผู้สนับสนุน (เดือนนี้)
+      </div>
+      <div class="panel-body" id="lb-list">
+        <div class="lb-row">
+          <div class="lb-rank gold">👑</div>
+          <div class="lb-avatar">🐉</div>
+          <div class="lb-name">มีโน</div>
+          <div class="lb-amount">฿750</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank silver">🥈</div>
+          <div class="lb-avatar">⚔</div>
+          <div class="lb-name">หน่านิ</div>
+          <div class="lb-amount">฿500</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank bronze">🥉</div>
+          <div class="lb-avatar">🌟</div>
+          <div class="lb-name">tortae</div>
+          <div class="lb-amount">฿456</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank other">4</div>
+          <div class="lb-avatar">🎮</div>
+          <div class="lb-name">นะโม</div>
+          <div class="lb-amount">฿400</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank other">5</div>
+          <div class="lb-avatar">💫</div>
+          <div class="lb-name">ริปเปล</div>
+          <div class="lb-amount">฿120</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT / SIDEBAR -->
+  <div class="right-col">
+
+    <!-- ONLINE -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="dot"></span>
+        📊 สถิติด้อม
+      </div>
+      <div class="panel-body">
+        <div class="member-count">
+          <span class="number" id="memberCounter">103</span>
+          <span class="label">ชาวเรื้อยทั้งหมด</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-key"><span class="online-dot"></span>ออนไลน์ตอนนี้</span>
+          <span class="stat-val" id="onlineCount">247</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-key">Subscribers</span>
+          <span class="stat-val">1400</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-key">วิดีโอทั้งหมด</span>
+          <span class="stat-val">10</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-key">ยอดสนับสนุนรวม</span>
+          <span class="stat-val" style="color:var(--gold)">฿1200$</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL LINKS -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="dot"></span>
+        🔗 ช่องทางติดตาม
+      </div>
+      <div class="panel-body">
+        <a href="#" class="link-btn">
+          <span class="icon">▶️</span> YouTube ราชาเทรนโบโรน
+        </a>
+        <a href="#" class="link-btn">
+          <span class="icon">📘</span> Facebook ด้อมชาวเรื้อย
+        </a>
+        <a href="#" class="link-btn">
+          <span class="icon">🐦</span> Twitter / X
+        </a>
+        <a href="#" class="link-btn">
+          <span class="icon">💬</span> Discord ชาวเรื้อย
+        </a>
+        <a href="#" class="link-btn">
+          <span class="icon">📸</span> Instagram
+        </a>
+        <a href="#" class="link-btn">
+          <span class="icon">🎵</span> TikTok
+        </a>
+      </div>
+    </div>
+
+    <!-- RECENT SUPPORT -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="dot"></span>
+        💝 สนับสนุนล่าสุด
+      </div>
+      <div class="panel-body" id="recent-donations">
+        <div class="lb-row">
+          <div class="lb-avatar">💖</div>
+          <div style="flex:1">
+            <div style="font-size:12px; font-family:'Chakra Petch'; color:var(--text)">นางฟ้าชาวเรื้อย</div>
+            <div style="font-size:11px; color:var(--muted)">เชียร์พี่ราชาเสมอ!</div>
+          </div>
+          <div class="lb-amount">฿50</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-avatar">⚡</div>
+          <div style="flex:1">
+            <div style="font-size:12px; font-family:'Chakra Petch'; color:var(--text)">ริปเปล</div>
+            <div style="font-size:11px; color:var(--muted)">สู้ๆ ราชา!</div>
+          </div>
+          <div class="lb-amount">฿70</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-avatar">🌸</div>
+          <div style="flex:1">
+            <div style="font-size:12px; font-family:'Chakra Petch'; color:var(--text)">หน่านิ</div>
+            <div style="font-size:11px; color:var(--muted)">รักช่องนี้มาก 💕</div>
+          </div>
+          <div class="lb-amount">฿500</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AD / BANNER RETRO -->
+    <div style="border: 2px solid var(--hot); background: var(--bg3); padding: 16px; text-align: center;">
+      <div style="font-family:'Press Start 2P', monospace; font-size:7px; color:var(--hot); margin-bottom:8px; letter-spacing:1px;">★ กิจกรรมพิเศษ ★</div>
+      <div style="font-size:24px; margin-bottom:8px; animation:float 2s ease-in-out infinite;">🎉</div>
+      <div style="font-size:13px; color:var(--text); line-height:1.7;">
+        สนับสนุนครบ <span style="color:var(--gold); font-weight:700;">฿500</span><br>รับ Badge พิเศษ<br>"อัศวินชาวเรื้อย"
+      </div>
+      <button onclick="void(0)" style="margin-top:12px; background:var(--hot); color:white; border:none; font-family:'Press Start 2P', monospace; font-size:7px; padding:8px 14px; cursor:pointer; letter-spacing:1px;">ดูรายละเอียด ▶</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>★ เว็บไซต์ด้อมชาวเรื้อย — ราชาเทรนโบโรน ★</div>
+  <div>Fan-made with <span class="heart">♥</span> by ชาวเรื้อย &nbsp;|&nbsp; ไม่ใช่เว็บทางการของ YouTube &nbsp;|&nbsp; 2026</div>
+  <div>Best viewed with <span>Chrome / Firefox</span> &nbsp;|&nbsp; Resolution: <span>1024x768+</span></div>
+</footer>
+
+<script>
+  // Clock
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+      now.toLocaleTimeString('th-TH', {hour12: false});
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Online count flicker
+  function randOnline() {
+    const base = 247;
+    const n = base + Math.floor(Math.random() * 20) - 10;
+    document.getElementById('onlineCount').textContent = n;
+  }
+  setInterval(randOnline, 5000);
+
+  // Amount pills
+  let selectedAmount = 100;
+  function selectAmount(el, val) {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    selectedAmount = val;
+    document.getElementById('donateAmount').value = val;
+  }
+
+  document.getElementById('donateAmount').addEventListener('input', function() {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    selectedAmount = parseInt(this.value) || 0;
+  });
+
+  // Donate submit
+  function submitDonate() {
+    const name = document.getElementById('donateName').value.trim() || 'ชาวเรื้อยนิรนาม';
+    const amount = parseInt(document.getElementById('donateAmount').value) || selectedAmount;
+    const msg = document.getElementById('donateMsg').value.trim() || '';
+
+    if (amount < 1) { showToast('กรุณากรอกจำนวนเงิน!'); return; }
+
+    // Add to recent
+    const emojis = ['💖','⚡','🌟','🎮','⚔','🌸','🔥','💫'];
+    const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+    const row = document.createElement('div');
+    row.className = 'lb-row';
+    row.style.animation = 'none';
+    row.innerHTML = `
+      <div class="lb-avatar">${emoji}</div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-family:'Chakra Petch';color:var(--text)">${name}</div>
+        <div style="font-size:11px;color:var(--muted)">${msg || 'เชียร์ราชาเสมอ!'}</div>
+      </div>
+      <div class="lb-amount">฿${amount.toLocaleString()}</div>
+    `;
+    const container = document.getElementById('recent-donations');
+    container.insertBefore(row, container.firstChild);
+    if (container.children.length > 5) container.removeChild(container.lastChild);
+
+    showToast('ขอบคุณที่สนับสนุน! ♥');
+    document.getElementById('donateName').value = '';
+    document.getElementById('donateMsg').value = '';
+    document.getElementById('donateAmount').value = 100;
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = '✓ ' + msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // Member counter animate
+  let target = 12847;
+  let current = 12800;
+  function countUp() {
+    if (current < target) {
+      current += Math.ceil((target - current) / 20);
+      document.getElementById('memberCounter').textContent = current.toLocaleString();
+      setTimeout(countUp, 40);
+    }
+  }
+  countUp();
+</script>
+</body>
+</html>
