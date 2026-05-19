@@ -1410,7 +1410,7 @@
   // Online count flicker
   function randOnline() {
     const base = 2;
-    const n = base + Math.floor(Math.random() * 20) - 10;
+    const n = base + Math.floor(Math.random() * 2) - 1;
     document.getElementById('onlineCount').textContent = n;
   }
   setInterval(randOnline, 5000);
