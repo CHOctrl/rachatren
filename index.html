@@ -949,7 +949,6 @@
 <div class="stars"></div>
 <div id="toast">✓ ขอบคุณ!</div>
 
-<!-- UNMUTE OVERLAY (shown on load) -->
 <div id="unmute-overlay" onclick="startMusic()">
   <div class="uo-icon">👑</div>
   <div class="uo-title">★ ด้อมชาวเรื้อย ★<br>ราชาเทรนโบโรน</div>
@@ -957,13 +956,10 @@
   <div class="uo-sub">[ เปิดเพลงประจำด้อม ]</div>
 </div>
 
-<!-- HTML AUDIO ELEMENT -->
-<!-- 🎵 วางไฟล์ bgm.mp3 ไว้ในโฟลเดอร์เดียวกับ index.html แล้ว deploy ขึ้น Vercel -->
 <audio id="bgm-audio" loop preload="auto">
   <source src="bgm.mp3" type="audio/mpeg">
 </audio>
 
-<!-- MUSIC PLAYER WIDGET -->
 <div id="music-player">
   <div class="mp-header">
     <span>♪ NOW PLAYING</span>
@@ -996,7 +992,6 @@
   </div>
 </div>
 
-<!-- HEADER -->
 <header>
   <div class="header-top">
     <span>★ OFFICIAL FAN SITE ★</span>
@@ -1022,7 +1017,6 @@
     </span>
   </div>
 
-  <!-- NAV -->
   <nav>
     <a href="#" class="active">🏠 หน้าแรก</a>
     <a href="#">📰 ข่าวสาร</a>
@@ -1034,13 +1028,71 @@
   </nav>
 </header>
 
-<!-- MAIN -->
 <div class="main-wrap">
 
-  <!-- LEFT / CONTENT -->
   <div class="left-col">
 
-    <!-- ANNOUNCE -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="dot"></span>
+        🎨 แกลเลอรี่ผลงานชาวเรื้อย
+      </div>
+      <div class="panel-body">
+        
+        <div style="background: var(--bg3); border: 1px solid var(--border2); padding: 16px; text-align: center;">
+          <div style="background: rgba(255, 255, 255, 0.95); border: 2px solid var(--hot); padding: 8px; box-shadow: 0 0 25px rgba(255,26,85,0.2); display: inline-block; width: 100%;">
+            
+            <img src="nani.png" alt="Featured Fanart" style="width: 100%; max-height: 600px; object-fit: contain; display: block; margin: 0 auto;">
+            
+          </div>
+          
+          <div style="margin-top: 16px; font-family: 'Press Start 2P', monospace; font-size: 10px; color: var(--hot); letter-spacing: 2px; text-shadow: 0 0 8px var(--hot-glow);">★ FEATURED ARTWORK ★</div>
+          <div style="margin-top: 12px; font-family: 'Chakra Petch', sans-serif; font-size: 18px; font-weight: 700; color: var(--text);">หน่านิ 🌸</div>
+          <div style="margin-top: 4px; font-family: 'Chakra Petch', sans-serif; font-size: 13px; color: var(--muted);">By: ชาวเรื้อยปริศนา</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <span class="dot"></span>
+        🏆 อันดับผู้สนับสนุน (เดือนนี้)
+      </div>
+      <div class="panel-body" id="lb-list">
+        <div class="lb-row">
+          <div class="lb-rank gold">👑</div>
+          <div class="lb-avatar">🐉</div>
+          <div class="lb-name">มีโน</div>
+          <div class="lb-amount">฿750</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank silver">🥈</div>
+          <div class="lb-avatar">⚔</div>
+          <div class="lb-name">หน่านิ</div>
+          <div class="lb-amount">฿500</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank bronze">🥉</div>
+          <div class="lb-avatar">🌟</div>
+          <div class="lb-name">tortae</div>
+          <div class="lb-amount">฿456</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank other">4</div>
+          <div class="lb-avatar">🎮</div>
+          <div class="lb-name">นะโม</div>
+          <div class="lb-amount">฿400</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank other">5</div>
+          <div class="lb-avatar">💫</div>
+          <div class="lb-name">ริปเปล</div>
+          <div class="lb-amount">฿120</div>
+        </div>
+      </div>
+    </div>
+
     <div class="announce">
       <div class="announce-title">★ ประกาศจากด้อม ★</div>
       <div class="announce-text">
@@ -1048,7 +1100,6 @@
       </div>
     </div>
 
-    <!-- NEWS -->
     <div class="panel">
       <div class="panel-header">
         <span class="dot"></span>
@@ -1093,91 +1144,10 @@
       </div>
     </div>
 
-    <!-- DONATE -->
-    <div class="donate-section">
-      <div class="donate-title">💝 สนับสนุนราชา 💝</div>
-
-      <div class="donate-form">
-        <div class="donate-input-row">
-          <div class="donate-field">
-            <label class="donate-label">ชื่อผู้สนับสนุน</label>
-            <input type="text" class="donate-input" id="donateName" placeholder="ชื่อของคุณ..." maxlength="30">
-          </div>
-          <div class="donate-field">
-            <label class="donate-label">อีเมล (ไม่บังคับ)</label>
-            <input type="email" class="donate-input" placeholder="your@email.com">
-          </div>
-        </div>
-
-        <div>
-          <label class="donate-label">เลือกจำนวน (บาท)</label>
-          <div class="amount-pills">
-            <button class="pill" onclick="selectAmount(this, 20)">฿20</button>
-            <button class="pill" onclick="selectAmount(this, 50)">฿50</button>
-            <button class="pill active" onclick="selectAmount(this, 100)">฿100</button>
-            <button class="pill" onclick="selectAmount(this, 200)">฿200</button>
-            <button class="pill" onclick="selectAmount(this, 500)">฿500</button>
-            <button class="pill" onclick="selectAmount(this, 1000)">฿1000</button>
-          </div>
-          <input type="number" class="donate-input" id="donateAmount" placeholder="หรือกรอกจำนวนเอง..." value="100" style="margin-top:6px;">
-        </div>
-
-        <div>
-          <label class="donate-label">ข้อความถึงราชา</label>
-          <input type="text" class="donate-input" id="donateMsg" placeholder="เขียนข้อความสั้นๆ..." maxlength="60">
-        </div>
-
-        <button class="donate-btn" onclick="submitDonate()">⚔ สนับสนุนตอนนี้เลย! ⚔</button>
-      </div>
-    </div>
-
-   
-    <!-- TOP DONATORS -->
-    <div class="panel">
-      <div class="panel-header">
-        <span class="dot"></span>
-        🏆 อันดับผู้สนับสนุน (เดือนนี้)
-      </div>
-      <div class="panel-body" id="lb-list">
-        <div class="lb-row">
-          <div class="lb-rank gold">👑</div>
-          <div class="lb-avatar">🐉</div>
-          <div class="lb-name">มีโน</div>
-          <div class="lb-amount">฿750</div>
-        </div>
-        <div class="lb-row">
-          <div class="lb-rank silver">🥈</div>
-          <div class="lb-avatar">⚔</div>
-          <div class="lb-name">หน่านิ</div>
-          <div class="lb-amount">฿500</div>
-        </div>
-        <div class="lb-row">
-          <div class="lb-rank bronze">🥉</div>
-          <div class="lb-avatar">🌟</div>
-          <div class="lb-name">tortae</div>
-          <div class="lb-amount">฿456</div>
-        </div>
-        <div class="lb-row">
-          <div class="lb-rank other">4</div>
-          <div class="lb-avatar">🎮</div>
-          <div class="lb-name">นะโม</div>
-          <div class="lb-amount">฿400</div>
-        </div>
-        <div class="lb-row">
-          <div class="lb-rank other">5</div>
-          <div class="lb-avatar">💫</div>
-          <div class="lb-name">ริปเปล</div>
-          <div class="lb-amount">฿120</div>
-        </div>
-      </div>
-    </div>
-
   </div>
 
-  <!-- RIGHT / SIDEBAR -->
   <div class="right-col">
 
-    <!-- ONLINE -->
     <div class="panel">
       <div class="panel-header">
         <span class="dot"></span>
@@ -1207,7 +1177,6 @@
       </div>
     </div>
 
-    <!-- SOCIAL LINKS -->
     <div class="panel">
       <div class="panel-header">
         <span class="dot"></span>
@@ -1235,7 +1204,6 @@
       </div>
     </div>
 
-    <!-- RECENT SUPPORT -->
     <div class="panel">
       <div class="panel-header">
         <span class="dot"></span>
@@ -1270,7 +1238,6 @@
     </div>
 
 
-    <!-- AD / BANNER RETRO -->
     <div style="border: 2px solid var(--hot); background: var(--bg3); padding: 16px; text-align: center;">
       <div style="font-family:'Press Start 2P', monospace; font-size:7px; color:var(--hot); margin-bottom:8px; letter-spacing:1px;">★ กิจกรรมพิเศษ ★</div>
       <div style="font-size:24px; margin-bottom:8px; animation:float 2s ease-in-out infinite;">🎉</div>
@@ -1283,7 +1250,6 @@
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div>★ เว็บไซต์ด้อมชาวเรื้อย — ราชาเทรนโบโรน ★</div>
   <div>Fan-made with <span class="heart">♥</span> by ชาวเรื้อย &nbsp;|&nbsp; ไม่ใช่เว็บทางการของ YouTube &nbsp;|&nbsp; 2026</div>
@@ -1398,19 +1364,29 @@
     document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
     el.classList.add('active');
     selectedAmount = val;
-    document.getElementById('donateAmount').value = val;
+    const donateAmt = document.getElementById('donateAmount');
+    if(donateAmt) donateAmt.value = val;
   }
 
-  document.getElementById('donateAmount').addEventListener('input', function() {
-    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-    selectedAmount = parseInt(this.value) || 0;
-  });
+  const donateAmtEl = document.getElementById('donateAmount');
+  if(donateAmtEl) {
+    donateAmtEl.addEventListener('input', function() {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      selectedAmount = parseInt(this.value) || 0;
+    });
+  }
 
-  // Donate submit
+  // Donate submit (เผื่อนำระบบกลับมาใส่ทีหลัง)
   function submitDonate() {
-    const name = document.getElementById('donateName').value.trim() || 'ชาวเรื้อยนิรนาม';
-    const amount = parseInt(document.getElementById('donateAmount').value) || selectedAmount;
-    const msg = document.getElementById('donateMsg').value.trim() || '';
+    const nameEl = document.getElementById('donateName');
+    const amtEl = document.getElementById('donateAmount');
+    const msgEl = document.getElementById('donateMsg');
+
+    if (!nameEl || !amtEl || !msgEl) return;
+
+    const name = nameEl.value.trim() || 'ชาวเรื้อยนิรนาม';
+    const amount = parseInt(amtEl.value) || selectedAmount;
+    const msg = msgEl.value.trim() || '';
 
     if (amount < 1) { showToast('กรุณากรอกจำนวนเงิน!'); return; }
 
@@ -1429,13 +1405,15 @@
       <div class="lb-amount">฿${amount.toLocaleString()}</div>
     `;
     const container = document.getElementById('recent-donations');
-    container.insertBefore(row, container.firstChild);
-    if (container.children.length > 5) container.removeChild(container.lastChild);
+    if(container) {
+      container.insertBefore(row, container.firstChild);
+      if (container.children.length > 5) container.removeChild(container.lastChild);
+    }
 
     showToast('ขอบคุณที่สนับสนุน! ♥');
-    document.getElementById('donateName').value = '';
-    document.getElementById('donateMsg').value = '';
-    document.getElementById('donateAmount').value = 100;
+    nameEl.value = '';
+    msgEl.value = '';
+    amtEl.value = 100;
   }
 
   function showToast(msg) {
