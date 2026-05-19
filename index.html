@@ -874,16 +874,6 @@
     letter-spacing: 1px;
   }
 
-  /* Hidden YT iframe */
-  #yt-frame {
-    position: fixed;
-    top: -9999px;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    pointer-events: none;
-  }
-
   #music-player.minimized .mp-body { display: none; }
 
   /* ======= PIXEL HEART ANIMATION ======= */
@@ -967,14 +957,11 @@
   <div class="uo-sub">[ เปิดเพลงประจำด้อม ]</div>
 </div>
 
-<!-- HIDDEN YOUTUBE IFRAME -->
-<div id="yt-frame">
-  <iframe id="yt-player"
-    src=""
-    allow="autoplay; encrypted-media"
-    allowfullscreen>
-  </iframe>
-</div>
+<!-- HTML AUDIO ELEMENT -->
+<!-- 🎵 วางไฟล์ bgm.mp3 ไว้ในโฟลเดอร์เดียวกับ index.html แล้ว deploy ขึ้น Vercel -->
+<audio id="bgm-audio" loop preload="auto">
+  <source src="bgm.mp3" type="audio/mpeg">
+</audio>
 
 <!-- MUSIC PLAYER WIDGET -->
 <div id="music-player">
@@ -999,7 +986,7 @@
     <div class="mp-controls">
       <button class="mp-btn" onclick="restartSong()">↺</button>
       <button class="mp-btn primary" id="mp-playbtn" onclick="togglePlay()">⏸</button>
-      <button class="mp-btn" onclick="openYT()">YT↗</button>
+      <button class="mp-btn" onclick="toggleMute()" id="mp-mutebtn">🔊</button>
     </div>
     <div class="mp-vol-row">
       <span class="mp-vol-label">VOL</span>
@@ -1086,7 +1073,7 @@
           <div class="news-date">15/05/26</div>
           <div class="news-text">
             <span class="news-tag gold">เหรียญทอง</span>
-            ขอบคุณสมาชิกทุกคนที่ร่วมสนับสนุนจนครบ 15 วัน ด้อมชาวเรื้อยสุดแกร่ง!
+            ขอบคุณสมาชิกทุกคนที่ร่วมสนับสนุนจนครบ 1 ปี ด้อมชาวเรื้อยสุดแกร่ง!
           </div>
         </div>
         <div class="news-item">
@@ -1144,7 +1131,7 @@
       </div>
     </div>
 
-  
+   
     <!-- TOP DONATORS -->
     <div class="panel">
       <div class="panel-header">
@@ -1190,7 +1177,7 @@
   <!-- RIGHT / SIDEBAR -->
   <div class="right-col">
 
-      <!-- ONLINE -->
+    <!-- ONLINE -->
     <div class="panel">
       <div class="panel-header">
         <span class="dot"></span>
@@ -1198,7 +1185,7 @@
       </div>
       <div class="panel-body">
         <div class="member-count">
-          <span class="number" id="memberCounter">103</span>
+          <span class="number" id="memberCounter">12,847</span>
           <span class="label">ชาวเรื้อยทั้งหมด</span>
         </div>
         <div class="stat-row">
@@ -1207,15 +1194,15 @@
         </div>
         <div class="stat-row">
           <span class="stat-key">Subscribers</span>
-          <span class="stat-val">1400</span>
+          <span class="stat-val">140</span>
         </div>
         <div class="stat-row">
           <span class="stat-key">วิดีโอทั้งหมด</span>
-          <span class="stat-val">10</span>
+          <span class="stat-val">20</span>
         </div>
         <div class="stat-row">
           <span class="stat-key">ยอดสนับสนุนรวม</span>
-          <span class="stat-val" style="color:var(--gold)">฿1200$</span>
+          <span class="stat-val" style="color:var(--gold)">฿1,200</span>
         </div>
       </div>
     </div>
@@ -1248,7 +1235,7 @@
       </div>
     </div>
 
-      <!-- RECENT SUPPORT -->
+    <!-- RECENT SUPPORT -->
     <div class="panel">
       <div class="panel-header">
         <span class="dot"></span>
@@ -1282,6 +1269,7 @@
       </div>
     </div>
 
+
     <!-- AD / BANNER RETRO -->
     <div style="border: 2px solid var(--hot); background: var(--bg3); padding: 16px; text-align: center;">
       <div style="font-family:'Press Start 2P', monospace; font-size:7px; color:var(--hot); margin-bottom:8px; letter-spacing:1px;">★ กิจกรรมพิเศษ ★</div>
@@ -1304,88 +1292,58 @@
 
 <script>
   // ============================================================
-  // MUSIC PLAYER — YouTube IFrame API
+  // MUSIC PLAYER — HTML Audio (MP3)
   // ============================================================
-  // 🎵 CHANGE THIS to any YouTube video ID you want as BGM
-  // Example: https://www.youtube.com/watch?v=XXXXXXXXXXX → ID = XXXXXXXXXXX
-  const YT_VIDEO_ID = 'fz2G9dNnPmo'; // lofi hip hop radio (placeholder — replace!)
-  const YT_SONG_TITLE = 'เพลงประจำด้อม';
-  const YT_SONG_ARTIST = 'ราชาเทรนโบโรน';
+  // 🎵 วางไฟล์ชื่อ bgm.mp3 ไว้ในโฟลเดอร์เดียวกับ index.html
+  // แล้ว deploy ขึ้น Vercel ด้วยกัน เพลงจะเล่นได้ทันที!
+  //
+  // ถ้าต้องการเปลี่ยนชื่อเพลงที่แสดงในตัว player ให้แก้ตรงนี้:
+  const SONG_TITLE  = 'เพลงประจำด้อม';
+  const SONG_ARTIST = 'ราชาเทรนโบโรน';
 
-  let ytPlayer = null;
+  const audio = document.getElementById('bgm-audio');
   let isPlaying = false;
+  let isMuted = false;
   let isMinimized = false;
 
-  // Load YouTube IFrame API
-  const ytScript = document.createElement('script');
-  ytScript.src = 'https://www.youtube.com/iframe_api';
-  document.head.appendChild(ytScript);
-
-  // Called by YouTube API when ready
-  window.onYouTubeIframeAPIReady = function() {
-    ytPlayer = new YT.Player('yt-player', {
-      videoId: YT_VIDEO_ID,
-      playerVars: {
-        autoplay: 0,
-        controls: 0,
-        loop: 1,
-        playlist: YT_VIDEO_ID,
-        modestbranding: 1,
-        rel: 0,
-        fs: 0,
-      },
-      events: {
-        onReady: function(e) {
-          e.target.setVolume(70);
-        }
-      }
-    });
-  };
+  audio.volume = 0.7;
 
   function startMusic() {
     document.getElementById('unmute-overlay').style.display = 'none';
-    document.getElementById('mp-title').textContent = YT_SONG_TITLE;
-    document.getElementById('mp-artist').textContent = YT_SONG_ARTIST;
-
-    if (ytPlayer && ytPlayer.playVideo) {
-      ytPlayer.playVideo();
-    } else {
-      // API not ready yet — wait and retry
-      setTimeout(() => {
-        if (ytPlayer) ytPlayer.playVideo();
-      }, 1500);
-    }
+    document.getElementById('mp-title').textContent = SONG_TITLE;
+    document.getElementById('mp-artist').textContent = SONG_ARTIST;
+    audio.play().catch(() => {});
     isPlaying = true;
     updatePlayerUI();
   }
 
   function togglePlay() {
-    if (!ytPlayer) return;
     if (isPlaying) {
-      ytPlayer.pauseVideo();
+      audio.pause();
       isPlaying = false;
     } else {
-      ytPlayer.playVideo();
+      audio.play();
       isPlaying = true;
     }
     updatePlayerUI();
   }
 
   function restartSong() {
-    if (!ytPlayer) return;
-    ytPlayer.seekTo(0);
-    ytPlayer.playVideo();
+    audio.currentTime = 0;
+    audio.play();
     isPlaying = true;
     updatePlayerUI();
   }
 
-  function changeVol(val) {
-    if (ytPlayer) ytPlayer.setVolume(parseInt(val));
-    document.getElementById('vol-num').textContent = val;
+  function toggleMute() {
+    isMuted = !isMuted;
+    audio.muted = isMuted;
+    document.getElementById('mp-mutebtn').textContent = isMuted ? '🔇' : '🔊';
   }
 
-  function openYT() {
-    window.open('https://www.youtube.com/watch?v=' + YT_VIDEO_ID, '_blank');
+  function changeVol(val) {
+    audio.volume = parseInt(val) / 100;
+    document.getElementById('vol-num').textContent = val;
   }
 
   function toggleMinimize() {
@@ -1488,8 +1446,8 @@
   }
 
   // Member counter animate
-  let target = 12847;
-  let current = 12800;
+  let target = 104;
+  let current = 104;
   function countUp() {
     if (current < target) {
       current += Math.ceil((target - current) / 20);
